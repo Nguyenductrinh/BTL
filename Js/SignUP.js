@@ -16,6 +16,7 @@ function leaveUserId() {
   if (userIDRegex.test(userID.value)) {
     statusOfUserID.textContent = "UserID hợp lệ";
     statusOfUserID.style.color = "blue";
+    setusser(userID.value) 
   } else {
     statusOfUserID.textContent = "UserID không hợp lệ. Độ dài từ 5 - 12";
     statusOfUserID.style.color = "red";
@@ -55,9 +56,11 @@ let leavePassword2 = ()=> {
   if (Password.value === Password2.value ) {
     statusOfPassword2.textContent = " hợp lệ";
     statusOfPassword2.style.color = "blue";
+    setusser(Password2.value) 
   } else {
     statusOfPassword2.textContent = " không hợp lệ";
     statusOfPassword2.style.color = "red";
   }
 }
 Password2.addEventListener("focusout", leavePassword2);
+
