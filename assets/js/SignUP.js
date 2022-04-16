@@ -1,74 +1,66 @@
-const form = document.getElementById('form');
-const username = document.getElementById('username');
-const email = document.getElementById('email');
-const password = document.getElementById('password');
-const password2 = document.getElementById('password2');
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
+// Check User name
 
-  validateInputs();
+let userID = document.getElementById("txtUserID");
+let statusOfUserID = document.getElementById("statusOfUserID");
+
+userID.addEventListener("focus", function () {
+  this.style.border = "1px solid red";
 });
 
-const setError = (element, message) => {
-  const inputControl = element.parentElement;
-  const errorDisplay = inputControl.querySelector('.error');
+userID.addEventListener("focusout", leaveUserId);
 
-  errorDisplay.innerText = message;
-  inputControl.classList.add('error');
-  inputControl.classList.remove('success')
-}
-
-const setSuccess = element => {
-  const inputControl = element.parentElement;
-  const errorDisplay = inputControl.querySelector('.error');
-
-  errorDisplay.innerText = '';
-  inputControl.classList.add('success');
-  inputControl.classList.remove('error');
-};
-
-// Regexp 
-const isValidEmail = email => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-}
-
-const validateInputs = () => {
-  const usernameValue = username.value.trim();
-  const emailValue = email.value.trim();
-  const passwordValue = password.value.trim();
-  const password2Value = password2.value.trim();
-
-  if(usernameValue === '') {
-      setError(username, 'Username is required');
+function leaveUserId() {
+  // Cách 02: dùng BTCQ: [1, +duongvocung]
+  var userIDRegex = /^[a-zA-Z0-9]{5,12}$/;
+  if (userIDRegex.test(userID.value)) {
+    statusOfUserID.textContent = "UserID hợp lệ";
+    statusOfUserID.style.color = "blue";
+    setusser(userID.value) 
   } else {
-      setSuccess(username);
+    statusOfUserID.textContent = "UserID không hợp lệ. Độ dài từ 5 - 12";
+    statusOfUserID.style.color = "red";
   }
-};
-
-if(emailValue === '') {
-  setError(email, 'Email is required');
-} else if (!isValidEmail(emailValue)) {
-  setError(email, 'Provide a valid email address');
-} else {
-  setSuccess(email);
 }
 
-if(passwordValue === '') {
-  setError(password, 'Password is required');
-} else if (passwordValue.length < 8 ) {
-  setError(password, 'Password must be at least 8 character.')
-} else {
-  setSuccess(password);
-}
+// Check Password
 
-if(password2Value === '') {
-  setError(password2, 'Please confirm your password');
-} else if (password2Value !== passwordValue) {
-  setError(password2, "Passwords doesn't match");
-} else {
-  setSuccess(password2);
-}
+let Password = document.getElementById("txtPassword");
+let statusOfPassword = document.getElementById("statusOfPassword");
 
+Password.addEventListener("focus", function () {
+  this.style.border = "1px solid red";
+});
+
+// Password.addEventListener("focusout", leavePassword);
+
+ let leavePassword = ()=> {
+  var PasswordRegex = /^[a-zA-Z0-9]{5,12}$/;
+  if (PasswordRegex.test(Password.value)) {
+    statusOfPassword.textContent = "Password hợp lệ";
+    statusOfPassword.style.color = "blue";
+  } else {
+    statusOfPassword.textContent = "Password không hợp lệ. Độ dài từ 7 - 12";
+    statusOfPassword.style.color = "red";
+  }
+}
+Password.addEventListener("focusout", leavePassword);
+
+// check nhập lại mật khẩu
+let Password2 = document.getElementById("txtPassword2");
+let statusOfPassword2 = document.getElementById("statusOfPassword2");
+
+// Password2.addEventListener("focusout", leavePassword2);
+let leavePassword2 = ()=> {
+
+  if (Password.value === Password2.value ) {
+    statusOfPassword2.textContent = " hợp lệ";
+    statusOfPassword2.style.color = "blue";
+    setusser(Password2.value) 
+  } else {
+    statusOfPassword2.textContent = " không hợp lệ";
+    statusOfPassword2.style.color = "red";
+  }
+}
+Password2.addEventListener("focusout", leavePassword2);
 
